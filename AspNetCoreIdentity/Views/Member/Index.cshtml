@@ -1,0 +1,23 @@
+﻿@model UserViewModel
+
+@{
+
+    Layout = "_MemberLayout";
+}
+
+
+<div class="row">
+    <h6 class="display-3 text-center text-primary">User Information</h6>
+</div>
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <div class="card" style="width: 40rem;">
+            <div class="card-body">
+                <p class="card-title">@Model.UserName</p>
+                <p class="card-subtitle mb-2 text-muted">@Model.PhoneNumber</p>
+                <p class="card-text">@Model.Email</p>
+            </div>
+        </div>
+    </div>
+</div>
