@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AspNetCoreIdentity.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCoreIdentity.Models.ViewModels
 {
@@ -20,6 +21,11 @@ namespace AspNetCoreIdentity.Models.ViewModels
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
+
+        public string? Picture { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public Gender? Gender { get; set; }
+
 
     }
 }

@@ -1,19 +1,16 @@
 ﻿using AspNetCoreIdentity.Models.Identity;
-using AspNetCoreIdentity.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreIdentity.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
 
-        private readonly UserManager<AppUser> _userManager;
-
-        public AdminController(UserManager<AppUser> userManager)
-        {
-            _userManager = userManager;
-        }
+        
+        public AdminController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) : base(userManager, signInManager) { }
+        
+       
 
 
         public IActionResult Index()

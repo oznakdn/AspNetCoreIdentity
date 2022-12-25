@@ -4,21 +4,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 using AspNetCoreIdentity.Helper;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using AspNetCoreIdentity.Models.Enums;
 
 namespace AspNetCoreIdentity.Controllers
 {
 
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
 
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+       
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) : base(userManager, signInManager) { }
+       
 
 
         #region Register
@@ -30,18 +28,39 @@ namespace AspNetCoreIdentity.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile? userPicture)
         {
-            AppUser appUser = new()
-            {
-                Email = model.Email,
-                UserName = model.Username,
-                PhoneNumber = model.PhoneNumber,
-                City = model.City
-            };
+
+            ViewBag.Gender = new SelectList(Enum.GetNames(typeof(Gender)));
+            
 
             if (ModelState.IsValid)
             {
+
+                AppUser appUser = new()
+                {
+                    Email = model.Email,
+                    UserName = model.Username,
+                    PhoneNumber = model.PhoneNumber,
+                    City = model.City,
+                    BirthDate = model.BirthDate,
+                    Gender = model.Gender,
+                    Picture = model.Picture
+                };
+
+                // Resmi kaydetmek icin
+                if (userPicture != null && userPicture.Length > 0)
+                {
+                    var fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(userPicture.FileName)}";
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Picture", fileName);
+
+                    using var stream = new FileStream(path, FileMode.Create);
+                    await userPicture.CopyToAsync(stream);
+                    //user.Picture = "/Picture/" + userPicture.FileName;
+                    appUser.Picture = fileName;
+
+                }
+
                 IdentityResult result = await _userManager.CreateAsync(appUser, model.Password);
                 if (result.Succeeded)
                 {

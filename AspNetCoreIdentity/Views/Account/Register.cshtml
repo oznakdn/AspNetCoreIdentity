@@ -18,7 +18,7 @@
 
 <div class="row mt-5">
     <div class="col-6 offset-3">
-        <form asp-action="Register" method="post" class="w-50 mx-lg-auto">
+        <form asp-action="Register" method="post" class="w-50 mx-lg-auto" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="form-label">Username</label>
@@ -39,6 +39,18 @@
                 <label class="form-label">City</label>
                 <input asp-for="City" class="form-control" />
                 <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Birth Date</label>
+                <input asp-for="BirthDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Gender</label>
+                <select class="form-control" asp-for="Gender" asp-items="@ViewBag.Gender"></select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Picture</label>
+                <input type="file" asp-for="Picture" class="form-control-file" name="userPicture" />
             </div>
             <div class="form-group">
                 <label class="form-label">Password</label>

@@ -45,7 +45,7 @@ builder.Services.ConfigureApplicationCookie(opt =>
     };
         
     opt.LoginPath = new PathString("/Account/Login");
-    opt.LogoutPath = new PathString("/Account/Logout");
+    opt.LogoutPath = new PathString("/Member/Logout");
     opt.SlidingExpiration = true;
     opt.ExpireTimeSpan = TimeSpan.FromDays(60);
 });
