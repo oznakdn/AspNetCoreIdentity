@@ -36,6 +36,13 @@
                                 <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Index" asp-controller="Admin">Admin</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </nav>

@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace AspNetCoreIdentity.Controllers
 {
 
-    [Authorize]
     public class MemberController : BaseController
     {
        
@@ -169,6 +168,13 @@ namespace AspNetCoreIdentity.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        #endregion
+
+        #region Access Denied
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
         #endregion
 
     }
